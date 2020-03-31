@@ -69,7 +69,7 @@ public class FXMLController {
         	for(Corso c : model.getCorsiDaMatricola(pippo)) {
         		txtResult.appendText(c.getCodins() + " " + c.getCrediti() + " " + c.getNome() + " " + c.getPd()+ "\n");
         	}
-    	}else {
+    	}else{
     		if(model.ifIscrittoAlCorso(comboBoxCorsi.getValue(),Integer.parseInt(txtMatricola.getText()))) {
     			txtResult.setText("Studente già iscritto a questo corso");
     		}else {
@@ -77,10 +77,9 @@ public class FXMLController {
     		}
     	}
     }
-
+    //Non so se vada fatto qui o nel model
     private boolean isAMatricola(String pippo1) {
     	boolean result = true;
-    	
     	if(pippo1.length() == 6) {
 			for (int i=0; i<pippo1.length(); i++) {
 				result = result & Character.isDigit(pippo1.charAt(i));
