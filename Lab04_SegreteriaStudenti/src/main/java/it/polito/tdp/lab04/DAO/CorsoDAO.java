@@ -67,7 +67,7 @@ public class CorsoDAO {
 	 * Data una matricola cerco nome e cognome
 	 */
 	public String getNomeCognomeDaMatricola(int matricola) {
-		String pippo = "";
+		String pippo = null;
 		String sql = "SELECT s.nome, s.cognome FROM studente AS s WHERE s.matricola = ? "; 
 		
 		try {
@@ -102,7 +102,7 @@ public class CorsoDAO {
 			Connection conn = ConnectDB.getConnection();
 			
 			
-			if(corso == null) {
+			if(corso.getNome().equals("Tutti")) {
 				final String sqlTutti = "SELECT s.matricola, s.nome, s.cognome, s.CDS FROM studente AS s";
 				PreparedStatement st = conn.prepareStatement(sqlTutti);
 				ResultSet res = st.executeQuery();
@@ -150,7 +150,7 @@ public class CorsoDAO {
 	/*
 	 * Data una matricola, ritorna tutti i corsi a cui è iscritta
 	 */
-	public List<Corso> getstudentiDaMatricola(int matricola){
+	public List<Corso> getCorsiDaMatricola(int matricola){
 		final String sql = "SELECT c.codins, c.crediti, c.nome, c.pd FROM corso AS c, iscrizione AS i WHERE c.codins = i.codins AND i.matricola=?";
 
 		List<Corso> corsi = new LinkedList<Corso>();

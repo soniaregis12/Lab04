@@ -25,7 +25,7 @@ public class Model {
 	}
 	
 	public List<Corso> getCorsiDaMatricola(int matricola){
-		return dao.getstudentiDaMatricola(matricola);
+		return dao.getCorsiDaMatricola(matricola);
 	}
 	
 	public boolean ifIscrittoAlCorso(Corso corso, int matricola) {

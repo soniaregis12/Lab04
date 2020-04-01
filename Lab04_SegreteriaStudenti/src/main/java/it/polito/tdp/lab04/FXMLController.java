@@ -77,7 +77,7 @@ public class FXMLController {
     		}
     	}
     }
-    //Non so se vada fatto qui o nel model
+   
     private boolean isAMatricola(String pippo1) {
     	boolean result = true;
     	if(pippo1.length() == 6) {
@@ -93,9 +93,15 @@ public class FXMLController {
     	
     	Corso c = comboBoxCorsi.getValue();
     	
-    	for(Studente s :model.getStudentiCorso(c)) {
-    		txtResult.appendText(s.getMatricola() + " " + s.getNome() + " " + s.getCognome() + " " + s.getCDS() + "\n" );
+    	if(c == null) {
+    		txtResult.setText("ERRORE! Seleziona almeno un corso!");
+    	}else {
+    		for(Studente s :model.getStudentiCorso(c)) {
+        		txtResult.appendText(s.getMatricola() + " " + s.getNome() + " " + s.getCognome() + " " + s.getCDS() + "\n" );
+        	}
     	}
+    	
+    	
     	
     }
 
@@ -103,9 +109,15 @@ public class FXMLController {
     void completamentoAutomatico(ActionEvent event) {
 
     	String pippo = model.getNomeCognomeDaMatricola(Integer.parseInt(txtMatricola.getText()));
-    	String array[] = pippo.split(" ");
-    	txtNome.setText(array[0]);
-    	txtCognome.setText(array[1]);
+    	
+    	if(pippo == null) {
+    		txtResult.setText("ERRORE! Matricola non presente!");
+    	}else {
+    		String array[] = pippo.split(" ");
+        	txtNome.setText(array[0]);
+        	txtCognome.setText(array[1]);
+    	}
+    	
     }
 
     @FXML
@@ -134,7 +146,9 @@ public class FXMLController {
 
 	public void setModel(Model model) {
 		this.model = model;
+		comboBoxCorsi.getItems().add(new Corso("00AAAAA", 0, "Tutti", 0));
 		comboBoxCorsi.getItems().addAll(this.model.getTuttiICorsi());
+		
 		
 	}
 }
