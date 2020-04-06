@@ -66,9 +66,16 @@ public class FXMLController {
     	}else if(comboBoxCorsi.getValue() == null) {
     		
     		int pippo = Integer.parseInt(txtMatricola.getText());
+    		StringBuilder sb = new StringBuilder();
+    		
         	for(Corso c : model.getCorsiDaMatricola(pippo)) {
-        		txtResult.appendText(c.getCodins() + " " + c.getCrediti() + " " + c.getNome() + " " + c.getPd()+ "\n");
+        		sb.append(String.format("%-8s ", c.getCodins()));
+				sb.append(String.format("%-4s ", c.getCrediti()));
+				sb.append(String.format("%-45s ", c.getNome()));
+				sb.append(String.format("%-4s ", c.getPd()));
+				sb.append("\n");
         	}
+        	txtResult.setText(sb.toString());
     	}else{
     		if(model.ifIscrittoAlCorso(comboBoxCorsi.getValue(),Integer.parseInt(txtMatricola.getText()))) {
     			txtResult.setText("Studente già iscritto a questo corso");
