@@ -31,4 +31,8 @@ public class Model {
 	public boolean ifIscrittoAlCorso(Corso corso, int matricola) {
 		return dao.studenteIscrittoAlCorso(corso, matricola);
 	}
+	
+	public boolean iscriviStudenteACorso(Studente s, Corso c) {
+		return dao.inscriviStudenteACorso(s, c);
+	}
 }

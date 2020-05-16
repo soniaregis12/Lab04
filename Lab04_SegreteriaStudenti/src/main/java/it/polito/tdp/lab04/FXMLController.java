@@ -55,7 +55,39 @@ public class FXMLController {
 
     @FXML
     void Iscrivi(ActionEvent event) {
+    	
+    	try {
+    		
+    		if (txtMatricola.getText().isEmpty()) {
+				txtResult.setText("Inserire una matricola.");
+				return;
+			}
 
+			if (comboBoxCorsi.getValue() == null) {
+				txtResult.setText("Selezionare un corso.");
+				return;
+			}
+			
+			int matricola = Integer.parseInt(txtMatricola.getText());
+			Corso corso = comboBoxCorsi.getValue();
+			
+			if (model.isStudenteIscrittoACorso(studente, corso)) {		// Avrei dovuto fare una funzione che invece di una stringa mi tornava uno studente
+				txtResult.appendText("Studente già iscritto a questo corso");
+				return;
+			}
+			
+			if (!model.inscriviStudenteACorso(studente, corso)) {
+				txtResult.appendText("Errore durante l'iscrizione al corso");
+				return;
+			} else {
+				txtResult.appendText("Studente iscritto al corso!");
+			}
+    		
+    	}catch(NumberFormatException e) {
+			txtResult.setText("Inserire una matricola nel formato corretto.");
+		} catch (RuntimeException e) {
+			txtResult.setText("ERRORE DI CONNESSIONE AL DATABASE!");
+		}
     }
 
     @FXML
